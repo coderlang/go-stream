@@ -65,6 +65,7 @@ func NewRequest(conn conn.Conn, data []byte) (req *Request, err error) {
 		Conn:   conn,
 		Header: make(map[string]string),
 	}
+	req.Header["x-remoteaddr"] = conn.RemoteAddr().String()
 
 	// must have reqid + header-end-flag
 	if len(data) < 5 {
@@ -168,7 +169,7 @@ func (r *Request) IsPushAck() (yes bool, err error) {
 	}
 
 	// no header; data must be push id
-	if len(r.Header) + len(r.Data)  != 4 {
+	if len(r.Header)+len(r.Data) != 4 {
 		return false, requestPErr
 	}
 

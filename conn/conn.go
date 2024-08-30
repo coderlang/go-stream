@@ -25,7 +25,7 @@ type extraValueInterface interface {
 type Base sync.Map
 
 func (b *Base) Load(i interface{}) (ExtraValue, bool) {
-	v,ok := ((*sync.Map)(b)).Load(i)
+	v, ok := ((*sync.Map)(b)).Load(i)
 	return v.(ExtraValue), ok
 }
 
@@ -34,12 +34,12 @@ func (b *Base) Store(key interface{}, value ExtraValue) {
 }
 
 func (b *Base) LoadOrStore(key interface{}, value ExtraValue) (actual ExtraValue, loaded bool) {
-	v,ok := ((*sync.Map)(b)).LoadOrStore(key, value)
+	v, ok := ((*sync.Map)(b)).LoadOrStore(key, value)
 	return v.(ExtraValue), ok
 }
 
 func (b *Base) LoadAndDelete(key interface{}) (value ExtraValue, loaded bool) {
-	v,ok := ((*sync.Map)(b)).LoadAndDelete(key)
+	v, ok := ((*sync.Map)(b)).LoadAndDelete(key)
 	return v.(ExtraValue), ok
 }
 
@@ -72,6 +72,7 @@ type Conn interface {
 	CloseWith(err error)
 
 	Context() context.Context
+	RemoteAddr() net.Addr
 }
 
 var (
