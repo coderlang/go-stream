@@ -65,7 +65,7 @@ func NewRequest(conn conn.Conn, data []byte) (req *Request, err error) {
 		Conn:   conn,
 		Header: make(map[string]string),
 	}
-	req.Header["x-remoteaddr"] = conn.RemoteAddr().String()
+	req.Header["X-Forwarded-For"] = conn.RemoteAddr().String()
 
 	// must have reqid + header-end-flag
 	if len(data) < 5 {
